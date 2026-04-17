@@ -4,7 +4,6 @@ import type {
 } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES } from '@typescript-eslint/utils';
 import ts from 'typescript';
-import * as tsutils from 'ts-api-utils';
 
 export type CallLikeNode =
   | TSESTree.CallExpression
@@ -82,8 +81,7 @@ export function getCallLikeNodeSymbol(
   checker: ts.TypeChecker,
 ): ts.Symbol | undefined {
   const symbol = services.getSymbolAtLocation(node);
-  return symbol !== undefined &&
-    tsutils.isSymbolFlagSet(symbol, ts.SymbolFlags.Alias)
+  return symbol !== undefined && (symbol.flags & ts.SymbolFlags.Alias) !== 0
     ? checker.getAliasedSymbol(symbol)
     : symbol;
 }
@@ -163,11 +161,11 @@ function getSymbolsInAliasesChain(
   checker: ts.TypeChecker,
 ): (ts.Symbol | undefined)[] {
   const symbols = [symbol];
-  if (!symbol || !tsutils.isSymbolFlagSet(symbol, ts.SymbolFlags.Alias)) {
+  if (!symbol || (symbol.flags & ts.SymbolFlags.Alias) === 0) {
     return symbols;
   }
   const targetSymbol = checker.getAliasedSymbol(symbol);
-  while (tsutils.isSymbolFlagSet(symbol, ts.SymbolFlags.Alias)) {
+  while ((symbol.flags & ts.SymbolFlags.Alias) !== 0) {
     const immediateAliasedSymbol: ts.Symbol | undefined =
       symbol.getDeclarations() && checker.getImmediateAliasedSymbol(symbol);
     if (!immediateAliasedSymbol) {

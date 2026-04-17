@@ -19,8 +19,7 @@
   ],
   "dependencies": {
     "@angular-eslint/bundled-angular-compiler": "workspace:*",
-    "@angular-eslint/utils": "workspace:*",
-    "ts-api-utils": "catalog:other-runtime-dependencies"
+    "@angular-eslint/utils": "workspace:*"
   },
   "devDependencies": {
     "@angular-eslint/test-utils": "workspace:*"

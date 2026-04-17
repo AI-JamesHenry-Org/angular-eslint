@@ -184,9 +184,6 @@ catalogs:
     strip-json-comments:
       specifier: 3.1.1
       version: 3.1.1
-    ts-api-utils:
-      specifier: ^2.1.0
-      version: 2.4.0
   typescript-eslint:
     '@typescript-eslint/rule-tester':
       specifier: 8.56.1
@@ -443,9 +440,6 @@ importers:
       eslint:
         specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
         version: 10.0.2(jiti@2.6.1)
-      ts-api-utils:
-        specifier: catalog:other-runtime-dependencies
-        version: 2.4.0(typescript@5.9.3)
       typescript:
         specifier: '*'
         version: 5.9.3
